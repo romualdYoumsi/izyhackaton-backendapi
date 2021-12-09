@@ -81,7 +81,7 @@ exports.update = (req, res) => {
                 res.status(404).send({
                     message: `Cannot update SystemVariables with id=${id}. Maybe SystemVariables was not found!`
                 });
-            } else res.send({ message: "User was updated successfully." });
+            } else res.send({ message: "System variable was updated successfully." });
         })
         .catch(err => {
             res.status(500).send({
