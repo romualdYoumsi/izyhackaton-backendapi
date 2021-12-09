@@ -21,7 +21,10 @@ app.use(express.urlencoded({ extended: true }));   /* bodyParser.urlencoded() is
 // default options
 app.use(fileUpload());
 
-const db = require("./app/models");
+const db = require("./app/models")
+const tutorials = require("./app/controllers/tutorial.controller.js");
+const cryptologos = require("./app/controllers/cryptologo.controller");
+
 db.mongoose
     .connect(db.url, {
         useNewUrlParser: true,
@@ -40,10 +43,13 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to bezkoder application." });
 });
 
-require("./app/routes/tutorial.routes")(app);
+app.get("/api/tutorials", tutorials.findAll);
+app.get("/api/cryptologo", cryptologos.findAll);
+
+// require("./app/routes/tutorial.routes")(app);
 require("./app/routes/users.routes")(app);
 require("./app/routes/systemvariables.routes")(app);
-require("./app/routes/cryptologo.routes")(app);
+// require("./app/routes/cryptologo.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 1221;
